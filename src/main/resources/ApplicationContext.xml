@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- <context:property-placeholder location="classpath=musicPlayer.properties"/> -
+    для указания файла откуда будут читаться данные-->
+    <bean id="rapBean"
+          class="ru.example.alexander_nozdryuhin.RapMusic"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy"
+          factory-method="getRapMusic"
+            >
+
+    </bean>
+   <bean id="musicPlayer"
+            class="ru.example.alexander_nozdryuhin.MusicPlayer">
+        <constructor-arg ref="rapBean" index="0"/>
+        <constructor-arg value="Sony" index="1"/>
+        <constructor-arg value="40" index="2"/>
+    </bean>
+    
+    <bean id="classicBean"
+          class="ru.example.alexander_nozdryuhin.ClassicalMusic">
+    </bean>
+    <context:component-scan base-package="ru.example.alexander_nozdryuhin"/>
+    <!--
+        <bean id="musicPlayer"
+          class="ru.example.alexander_nozdryuhin.MusicPlayer"
+            scope="prototype">
+        <property name="music">
+             <array>
+                 <ref bean="classicBean"/>
+                 <ref bean="rapBean"/>
+                 <ref bean="rockBean"/>
+             </array>
+        </property>
+        <property name="name" value="Sony"/>
+        <property name="volume" value="50"/>
+    </bean>
+    -->
+</beans>
